@@ -12,6 +12,8 @@
 /**
  * Determines whether a given number is positive. Zero is considered positive.
  * This function does not use Number or Math class methods.
+ * Определяет, является ли данное число положительным. Положительным считается ноль.
+ * Эта функция не использует методы класса Number или Math.
  *
  * @param {number} number - The number to check.
  * @return {boolean} True if the number is positive or zero, false otherwise.
@@ -21,12 +23,16 @@
  *  0  => true
  *  -5 => false
  */
-function isPositive(/* number */) {
-  throw new Error('Not implemented');
+function isPositive(number) {
+  if (typeof number === 'number' && number >= 0) {
+    return true;
+  }
+  return false;
 }
 
 /**
  * Returns the maximum of three numbers without using Array and Math classes methods.
+ * Возвращает наибольшее из трех чисел без использования методов Array и Math classes.
  *
  * @param {number} a - The first number.
  * @param {number} b - The second number.
@@ -38,13 +44,17 @@ function isPositive(/* number */) {
  *  -5, 0, 5      => 5
  *  -0.1, 0, 0.2  => 0.2
  */
-function getMaxNumber(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getMaxNumber(a, b, c) {
+  if (a > b && a > c) {
+    return a;
+  }
+  return b > c ? b : c;
 }
 
 /**
  * Checks if a queen can capture a king in the next move on an 8x8 chessboard.
  * See more details at https://en.wikipedia.org/wiki/Queen_(chess)
+ * Проверяет, сможет ли ферзь захватить короля следующим ходом на шахматной доске 8х8.
  *
  * @typedef {{
  *  x: number,
@@ -60,13 +70,22 @@ function getMaxNumber(/* a, b, c */) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  if (
+    queen.x === king.x ||
+    queen.y === king.y ||
+    Math.abs(queen.x - king.x) === Math.abs(queen.y - king.y)
+  ) {
+    return true;
+  }
+  return false;
 }
 
 /**
  * Determines whether a triangle is isosceles based on its side lengths.
  * In this task, the use of methods of the String and Array classes is not allowed.
+ * Определяет, является ли треугольник равнобедренным, исходя из длин его сторон.
+ * В этой задаче использование методов классов String и Array запрещено.
  *
  * @param {number} a - The length of the first side.
  * @param {number} b - The length of the second side.
@@ -82,13 +101,21 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  if (
+    !!(a === b || b === c || a === c) &&
+    Math.max(a, b, c) < Math.min(a, b, c) * 2
+  ) {
+    return true;
+  }
+  return false;
 }
 
 /**
  * Converts a number to Roman numerals. The number will be between 1 and 39.
  * In this task, the use of methods of the String and Array classes is not allowed.
+ * Преобразует число в римские цифры. Число будет находиться в диапазоне от 1 до 39.
+ * В этой задаче запрещено использование методов классов String и Array.
  *
  * @param {number} num - The number to convert.
  * @return {string} The Roman numeral representation of the number.
@@ -100,13 +127,41 @@ function isIsoscelesTriangle(/* a, b, c */) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  let res = '';
+  let number = num;
+
+  while (number > 9) {
+    res += 'X';
+    number -= 10;
+  }
+
+  if (number === 9) {
+    res += 'IX';
+    return res;
+  }
+  if (number === 4) {
+    res += 'IV';
+    return res;
+  }
+
+  while (number > 0) {
+    if (number >= 5) {
+      res += 'V';
+      number -= 5;
+    } else {
+      res += 'I';
+      number -= 1;
+    }
+  }
+  return res;
 }
 
 /**
  * Converts a number to a string, replacing digits with words.
  * In this task, the use of methods of the String and Array classes is not allowed.
+ * Преобразует число в строку, заменяя цифры на слова.
+ * В этом задании нельзя использовать методы классов String и Array.
  *
  * @param {string} numberStr - The number as a string.
  * @return {string} The number with digits replaced by words.
@@ -126,6 +181,8 @@ function convertNumberToString(/* numberStr */) {
 /**
  * Determines whether a string is a palindrome.
  * In this task, the use of methods of the String and Array classes is not allowed.
+ * Определяет, является ли строка палиндромом.
+ * В этом задании нельзя использовать методы классов String и Array.
  *
  * @param {string} str - The string to check.
  * @return {boolean} True if the string is a palindrome, false otherwise.
@@ -142,6 +199,8 @@ function isPalindrome(/* str */) {
 /**
  * Finds the first occurrence of a letter in a string.
  * In this task, the use of methods of the String and Array classes is not allowed.
+ * Находит первое вхождение буквы в строке.
+ * В этом задании нельзя использовать методы классов String и Array.
  *
  * @param {string} str - The string to search.
  * @param {string} letter - The letter to find.
@@ -160,6 +219,8 @@ function getIndexOf(/* str, letter */) {
 /**
  * Checks if a number contains a specific digit.
  * In this task, the use of methods of the String and Array classes is not allowed.
+ * Проверяет, содержит ли число заданную цифру.
+ * В этом задании нельзя использовать методы классов String и Array.
  *
  * @param {number} num - The number to check.
  * @param {number} digit - The digit to search for.
@@ -180,6 +241,9 @@ function isContainNumber(/* num, digit */) {
  * Finds the index of an element in an array where the sum of elements to the left equals the sum of elements to the right.
  * If such an index does not return -1.
  * In this task, the use of methods of the Array and String classes is not allowed.
+ * Находит индекс элемента массива, где сумма элементов слева равна сумме элементов справа.
+ * Если такого индекса нет, возвращает -1.
+ * В этом задании нельзя использовать методы классов Array и String.
  *
  * @param {number[]} arr - The array to check.
  * @return {number} The index of the balance point, or -1 if none exists.
@@ -197,6 +261,9 @@ function getBalanceIndex(/* arr */) {
  * Generates a spiral matrix of a given size, filled with numbers in ascending order starting from one.
  * The direction of filling with numbers is clockwise.
  * Usage of String and Array classes methods is not allowed in this task.
+ * Создаёт спиральную матрицу заданного размера, заполненную числами по возрастанию, начиная с единицы.
+ * Направление заполнения — по часовой стрелке.
+ * В этом задании нельзя использовать методы классов String и Array.
  *
  * @param {number} size - The size of the matrix.
  * @return {number[][]} The spiral matrix.
@@ -222,6 +289,9 @@ function getSpiralMatrix(/* size */) {
  * Rotates a matrix by 90 degrees clockwise in place.
  * Take into account that the matrix size can be very large. Consider how you can optimize your solution.
  * Usage of String and Array class methods is not allowed in this task.
+ * Поворачивает матрицу на 90 градусов по часовой стрелке на месте.
+ * Учитывайте, что размер матрицы может быть очень большим. Постарайтесь оптимизировать решение.
+ * В этом задании нельзя использовать методы классов String и Array
  *
  * @param {number[][]} matrix - The matrix to rotate.
  * @return {number[][]} The rotated matrix.
@@ -242,6 +312,10 @@ function rotateMatrix(/* matrix */) {
  * Employ any sorting algorithm of your choice.
  * Take into account that the array can be very large. Consider how you can optimize your solution.
  * In this task, the use of methods of the Array and String classes is not allowed.
+ * Сортирует массив чисел по возрастанию на месте.
+ * Используйте любой алгоритм сортировки на ваш выбор.
+ * Учитывайте, что массив может быть очень большим. Постарайтесь оптимизировать решение.
+ * В этом задании нельзя использовать методы классов Array и String.
  *
  * @param {number[]} arr - The array to sort.
  * @return {number[]} The sorted array.
@@ -259,6 +333,9 @@ function sortByAsc(/* arr */) {
  * Shuffles characters in a string so that the characters with an odd index are moved to the end of the string at each iteration.
  * Take into account that the string can be very long and the number of iterations is large. Consider how you can optimize your solution.
  * Usage of Array class methods is not allowed in this task.
+ * Перемешивает символы в строке так, чтобы символы с нечётным индексом перемещались в конец строки на каждой итерации.
+ * Учитывайте, что строка может быть очень длинной, а количество итераций — большим. Постарайтесь оптимизировать решение.
+ * В этом задании нельзя использовать методы класса Array.
  *
  * @param {string} str - The string to shuffle.
  * @param {number} iterations - The number of iterations to perform the shuffle.
@@ -280,6 +357,9 @@ function shuffleChar(/* str, iterations */) {
  * Returns the nearest largest integer consisting of the digits of the given positive integer.
  * If there is no such number, it returns the original number.
  * Usage of String class methods is not allowed in this task.
+ * Возвращает ближайшее большее целое число, составленное из цифр данного положительного числа.
+ * Если такого числа не существует, возвращает исходное число.
+ * В этом задании нельзя использовать методы класса String.
  *
  * @example:
  * 12345    => 12354
